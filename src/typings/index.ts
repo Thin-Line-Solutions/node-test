@@ -5,6 +5,7 @@ export interface BotInfo {
 }
 
 export interface BotStats {
+    user_count?: number,
     guild_count?: number,
     shard_count?: number,
     shards?: number

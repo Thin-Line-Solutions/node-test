@@ -65,18 +65,19 @@ export class FatesListClient extends EventEmitter {
      public async postStats(stats: BotStats, botID: Snowflake): Promise<BotStats> {
 
         if (!stats) throw new Error(`[Fates API] You didn\'t provide any stats to post.`);
+        if (stats.guild_count && !isNaN(stats.guild_count)) throw new Error(`[Fates API] No Server Count Provided or Server Count is not a Valid Integer`);
 
         /* eslint-disable camelcase */
-        await this._request('POST', `bots/${botID}`, {
-            servers: stats.guild_count,
-            shards: stats.shard_count
+        await this._request('POST', `bots/${botID}/stats`, {
+            guild_count: stats.guild_count,
+            shard_count: stats.shard_count,
+            user_count: stats.user_count,
+            shards: stats.shards
         });
 
         /* eslint-enable camelcase */
 
         return stats;
     }
-
-
 }
 

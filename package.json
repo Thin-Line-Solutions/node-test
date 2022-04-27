@@ -18,6 +18,7 @@
       "@ayanaware/logger": "^2.2.1",
       "@types/express": "^4.17.11",
       "@types/node": "^14.14.41",
+      "@types/node-fetch": "^2.5.10",
       "@types/prettier": "^2.4.2",
       "@types/semver": "^7.3.8",
       "@typescript-eslint/eslint-plugin": "^5.6.0",

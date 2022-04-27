@@ -28,28 +28,33 @@ export class FatesListClient extends EventEmitter {
     /**
      * BASE REQUEST HANDLER
      */
-    private async _request(method: string, path: string, body?: Record<string, any>): Promise<any> {
+     private async _request(method: string, path: string, body?: Record<string, any>): Promise<any> {
 
         const headers = new Headers();
 
-        if (this.options.authToken) headers.set('Authorization', this.options.authToken);
-        if (method !== 'GET') headers.set('Content-Type', 'application/json');
+        if (this.options.authToken) headers.set('authorization', this.options.authToken);
+        if (method !== "GET") headers.set('Content-Type', 'application/json');
 
-        let baseURL = `https://api.fateslist.xyz/${path}`;
+        let url = `https://api.infinitybotlist.com/${path}`
 
-        if (body && method === 'GET') baseURL += `${new URLSearchParams(body)}`;
+        if (body && method === "GET") url += `${new URLSearchParams(body)}`;
 
-        const response = await fetch(baseURL, {
-            method, headers,
-            body: body && method !== 'GET' ? JSON.stringify(body) : undefined,
+        const response = await fetch(url, {
+            method,
+            headers,
+            body: body && method !== "GET" ? JSON.stringify(body) : undefined,
         });
 
         let responseBody;
 
-        if (response.headers.get('Content-Type')?.startsWith('application/json')) {
+        if (response.headers.get('Content-Type')?.startsWith("application/json")) {
+
             responseBody = await response.json();
+
         } else {
-            responseBody = response.text();
+
+            responseBody = await response.text()
+
         }
 
         if (!response.ok) {

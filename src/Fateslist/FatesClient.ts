@@ -1,7 +1,7 @@
 import fetch, { Headers } from 'node-fetch';
 import FL_Error from '../Errors/ErrHandler';
 import { EventEmitter } from 'events';
-import { Snowflake, BotStats, BotInfo } from '../typings/index';
+import { Snowflake, BotStats } from '../typings/index';
 import e from 'express';
 
 interface FL_Options {
@@ -58,7 +58,7 @@ export class FatesListClient extends EventEmitter {
         }
 
         if (!response.ok) {
-            throw new FL_Error(response.status, response.statusText, response);
+            throw new FL_Error(response.status, response.statusText, responseBody);
         }
 
         return responseBody;
